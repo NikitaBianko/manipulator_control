@@ -115,7 +115,7 @@ public:
 		this->wrist.angle = angle;
 	}
 	void setAngleToHorizon(double angle) {
-		this->wrist.angleToHorizon = angle;
+		this->wrist.angleToHorizon = angle + 90;
 	}
 
 	bool setAngles(double manipulatorAngle, double shoulderAngle, double elbowAngle, double wristAngle) {
@@ -124,7 +124,7 @@ public:
 			return false;
 		}
 
-		if (!this->wrist.isFixed) {
+		if (this->wrist.isFixed) {
 			wristAngle = this->wrist.angle;
 		}
 		else {
@@ -179,9 +179,7 @@ int main() {
 
 	// moving to a given point with a fixed wrist
 
-	//manipulator.wristFixed() == manipulator.wristFixed(true) == manipulator.wristFixed(90.0)
-
-	manipulator.wristFixed();
+	manipulator.wristFixed(90.0);
 
 	manipulator.moveInPoint({ 5, 5, 5 });
 
@@ -194,7 +192,7 @@ int main() {
 
 	manipulator.wristFixed(false);
 
-	manipulator.setAngleToHorizon(90);
+	manipulator.setAngleToHorizon(0);
 
 	manipulator.moveInPoint({ 5, 5, 5 });
 
