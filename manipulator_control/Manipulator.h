@@ -16,20 +16,31 @@ private:
 	Wrist wrist;
 	Point position;
 
-	bool checkCoordinates(Point coordinates);
-	bool checkAngles(double manipulatorAngle, double shoulderAngle, double elbowAngle, double wristAngle);
-
 public:
+	Manipulator();
 	Manipulator(double lenShoulder, double lenElbow, double lenWrist, bool setToInitialPosition = false);
-	bool moveInPoint(Point coordinates);
+	
+	bool CheckCoordinates(Point coordinates);
+	bool CheckAngles(double manipulatorAngle, double shoulderAngle, double elbowAngle, double wristAngle);
 
-	void wristFixed(bool isFixed = true);
-	void wristFixed(double angle);
-	void setAngleToHorizon(double angle);
+	bool MoveInPoint(Point coordinates);
 
-	bool setAngles(double manipulatorAngle, double shoulderAngle, double elbowAngle, double wristAngle);
+	void SetFixedWrist(bool isFixed = true);
+	void SetFixedWrist(double angle);
 
-	std::string Request();
+	void SetAngleToHorizon(double angle);
 
-	Point getPosition();
+	bool SetAngles(double manipulatorAngle, double shoulderAngle, double elbowAngle, double wristAngle);
+
+	std::string GetAnglesByString();
+
+	Point GetPosition();
+
+	double GetAngle();
+
+	double GetShoulderAngle();
+
+	double GetElbowAngle();
+
+	double GetWristAngle();
 };

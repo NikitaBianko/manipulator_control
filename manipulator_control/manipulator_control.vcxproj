@@ -139,12 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Elbow.cpp" />
     <ClCompile Include="Manipulator.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Shoulder.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Wrist.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Elbow.h" />

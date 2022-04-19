@@ -2,9 +2,9 @@
 class Wrist {
 public:
 	double angle = 90;
-	double angleToHorizon = 90;
+	double angle_to_horizon = 90;
 	double compression = 0;
 	double len;
-	bool isFixed = false; // fixed relative to the elbow
+	bool is_fixed = false; // fixed relative to the elbow
 };
 
