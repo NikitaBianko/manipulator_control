@@ -1,0 +1,45 @@
+﻿<Window x:Class="manipulator_control.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:manipulator_control"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="manipulator" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <GroupBox Margin="5" Header="serial">
+                <Border Background="LightSteelBlue" Padding="7" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Padding="7">serial ports:</Label>
+                        <ComboBox Name="SerialPortNames" Grid.Column="1" Margin="5"></ComboBox>
+                        <Button Name="RefreshBtn" Grid.Column="2" Margin="5" Padding="7,0,7,0" Width="100" Click="RefreshBtn_Click">Refresh</Button>
+                        <Button Name="SerialPortConnectBtn" Grid.Column="3" Margin="5" Padding="7,0,7,0" Click="SerialPortConnectBtn_Click">Connect</Button>
+                    </Grid>
+                </Border>
+            </GroupBox>
+
+            <Grid>
+                <TextBox Name="XCoordinate" materialDesign:HintAssist.Hint="X" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+            <Grid>
+                <TextBox Name="YCoordinate" materialDesign:HintAssist.Hint="Y" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+            <Grid>
+                <TextBox Name="ZCoordinate" materialDesign:HintAssist.Hint="Z" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+            <Grid>
+                <Button Name="SendBtn" HorizontalAlignment="Left" Width="120" Height="25" Content="send" Click="SendBtn_Click" IsEnabled="False"/>
+            </Grid>
+        </StackPanel>
+
+    </Grid>
+</Window>

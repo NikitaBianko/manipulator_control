@@ -25,9 +25,9 @@ manipulator.SetAngles(90, 90, 90, 90);
 Console.WriteLine(manipulator.Angle.ToString() + ' ' + manipulator.ShoulderAngle.ToString() + ' ' + manipulator.ElbowAngle.ToString() + ' ' + manipulator.WristAngle.ToString());
 Console.WriteLine(manipulator.Position.X.ToString() + ' ' + manipulator.Position.Y.ToString() + ' ' + manipulator.Position.Z.ToString() + '\n');
 
-//check
+//check  
 manipulator.SetFixedWrist(false);
-manipulator.MoveInPoint(new Point(-5, 10, 7));
+manipulator.MoveInPoint(new Point(-10, 10, 7));
 Console.WriteLine(manipulator.Angle.ToString() + ' ' + manipulator.ShoulderAngle.ToString() + ' ' + manipulator.ElbowAngle.ToString() + ' ' + manipulator.WristAngle.ToString());
 manipulator.SetAngles(manipulator.Angle, manipulator.ShoulderAngle, manipulator.ElbowAngle, manipulator.WristAngle);
 Console.WriteLine(manipulator.Position.X.ToString() + ' ' + manipulator.Position.Y.ToString() + ' ' + manipulator.Position.Z.ToString());

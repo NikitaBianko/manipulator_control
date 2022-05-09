@@ -1,11 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0-ci147" />
+    <PackageReference Include="System.IO.Ports" Version="7.0.0-preview.3.22175.4" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Manipulator.Core\ManipulatorControl.Core.csproj" />

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "manipulator_control", "manipulator_control\manipulator_control.csproj", "{85CF2574-4199-4CF5-A7A5-6BC0BF88ABBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManipulatorControl.Core", "Manipulator.Core\ManipulatorControl.Core.csproj", "{BEAEC688-01F9-45AF-A1B4-0385CFEFE48F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManipulatorControl.Core", "Manipulator.Core\ManipulatorControl.Core.csproj", "{BEAEC688-01F9-45AF-A1B4-0385CFEFE48F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
