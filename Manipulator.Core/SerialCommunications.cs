@@ -45,7 +45,7 @@ namespace ManipulatorControl.Core
             try
             {
                 string selectedSerialPort = portName;
-                serialPort = new SerialPort(selectedSerialPort, 115200);
+                serialPort = new SerialPort(selectedSerialPort, baudRate);
                 serialPort.Open();
 
                 isConnected = true;

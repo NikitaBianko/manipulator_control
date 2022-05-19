@@ -27,7 +27,7 @@ namespace manipulator_control
             InitializeComponent();
             InitializeSerialPort();
 
-            manipulator = new Manipulator(7.65, 7.92, 4);
+            manipulator = new Manipulator(7.65, 7.92, 4, true);
         }
 
         private void InitializeSerialPort()
@@ -50,10 +50,16 @@ namespace manipulator_control
             try
             {
                 string selectedSerialPort = SerialPortNames.SelectedItem.ToString();
-                serial.Connect(selectedSerialPort, 115200);
+                serial.Connect(selectedSerialPort, 9600);
 
                 SerialPortConnectBtn.Content = "Disconnect";
                 SendBtn.IsEnabled = true;
+                ForwardBtn.IsEnabled = true;
+                LeftBtn.IsEnabled = true;   
+                DownBtn.IsEnabled = true;  
+                RightBtn.IsEnabled = true;  
+                BackBtn.IsEnabled = true;  
+                UpBtn.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -65,6 +71,12 @@ namespace manipulator_control
             serial.Close();
             SerialPortConnectBtn.Content = "Connect";
             SendBtn.IsEnabled = false;
+            ForwardBtn.IsEnabled = false;
+            LeftBtn.IsEnabled = false;
+            DownBtn.IsEnabled = false;
+            RightBtn.IsEnabled = false;
+            BackBtn.IsEnabled = false;
+            UpBtn.IsEnabled = false;
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
@@ -90,7 +102,7 @@ namespace manipulator_control
             {
                 manipulator.MoveInPoint(new ManipulatorControl.Core.Point(double.Parse(XCoordinate.Text), double.Parse(YCoordinate.Text), double.Parse(ZCoordinate.Text)));
 
-                byte state = 15; // 0000 0100 -> No instructions and 4 bytes will be sent next
+                byte state = ((int)State.Successful << 4) + 4; // 0000 0100 -> No instructions and 4 bytes will be sent next
 
                 var message = new byte[] { state,
                     System.Convert.ToByte(manipulator.Angle), 
@@ -103,6 +115,224 @@ namespace manipulator_control
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void CoordinatesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CoordinatesBtn.IsEnabled = false;
+            ControlBtn.IsEnabled = true;
+            ProgrammingBtn.IsEnabled = true;
+            Coordinates.Visibility = Visibility.Visible;
+            Control.Visibility = Visibility.Collapsed;
+            Programming.Visibility = Visibility.Collapsed;
+        }
+
+        private void ControlBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CoordinatesBtn.IsEnabled = true;
+            ControlBtn.IsEnabled = false;
+            ProgrammingBtn.IsEnabled = true;
+            Coordinates.Visibility = Visibility.Collapsed;
+            Control.Visibility = Visibility.Visible;
+            Programming.Visibility = Visibility.Collapsed;
+        }
+
+        private void ProgrammingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CoordinatesBtn.IsEnabled = true;
+            ControlBtn.IsEnabled = true;
+            ProgrammingBtn.IsEnabled = false;
+            Coordinates.Visibility = Visibility.Collapsed;
+            Control.Visibility = Visibility.Collapsed;
+            Programming.Visibility = Visibility.Visible;
+        }
+
+        double stepManipulator = 1;
+
+        private void Forward_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var currentPosition = manipulator.Position;
+
+                currentPosition.Y += stepManipulator;
+
+                manipulator.MoveInPoint(currentPosition);
+
+                byte state = ((int)State.Successful << 4) + 4;
+
+                var message = new byte[] { state,
+                System.Convert.ToByte(manipulator.Angle),
+                System.Convert.ToByte(manipulator.ShoulderAngle),
+                System.Convert.ToByte(manipulator.ElbowAngle),
+                System.Convert.ToByte(manipulator.WristAngle) };
+
+                serial.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Left_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var currentPosition = manipulator.Position;
+
+                currentPosition.X -= stepManipulator;
+
+                manipulator.MoveInPoint(currentPosition);
+
+                byte state = ((int)State.Successful << 4) + 4;
+
+                var message = new byte[] { state,
+                System.Convert.ToByte(manipulator.Angle),
+                System.Convert.ToByte(manipulator.ShoulderAngle),
+                System.Convert.ToByte(manipulator.ElbowAngle),
+                System.Convert.ToByte(manipulator.WristAngle) };
+
+                serial.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Right_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var currentPosition = manipulator.Position;
+
+                currentPosition.X += stepManipulator;
+
+                manipulator.MoveInPoint(currentPosition);
+
+                byte state = ((int)State.Successful << 4) + 4;
+
+                var message = new byte[] { state,
+                System.Convert.ToByte(manipulator.Angle),
+                System.Convert.ToByte(manipulator.ShoulderAngle),
+                System.Convert.ToByte(manipulator.ElbowAngle),
+                System.Convert.ToByte(manipulator.WristAngle) };
+
+                serial.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var currentPosition = manipulator.Position;
+
+                currentPosition.Y -= stepManipulator;
+
+                manipulator.MoveInPoint(currentPosition);
+
+                byte state = ((int)State.Successful << 4) + 4;
+
+                var message = new byte[] { state,
+                System.Convert.ToByte(manipulator.Angle),
+                System.Convert.ToByte(manipulator.ShoulderAngle),
+                System.Convert.ToByte(manipulator.ElbowAngle),
+                System.Convert.ToByte(manipulator.WristAngle) };
+
+                serial.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Down_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var currentPosition = manipulator.Position;
+
+                currentPosition.Z -= stepManipulator;
+
+                manipulator.MoveInPoint(currentPosition);
+
+                byte state = ((int)State.Successful << 4) + 4;
+
+                var message = new byte[] { state,
+                System.Convert.ToByte(manipulator.Angle),
+                System.Convert.ToByte(manipulator.ShoulderAngle),
+                System.Convert.ToByte(manipulator.ElbowAngle),
+                System.Convert.ToByte(manipulator.WristAngle) };
+
+                serial.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Up_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var currentPosition = manipulator.Position;
+
+                currentPosition.Z += stepManipulator;
+
+                manipulator.MoveInPoint(currentPosition);
+
+                byte state = ((int)State.Successful << 4) + 4;
+
+                var message = new byte[] { state,
+                System.Convert.ToByte(manipulator.Angle),
+                System.Convert.ToByte(manipulator.ShoulderAngle),
+                System.Convert.ToByte(manipulator.ElbowAngle),
+                System.Convert.ToByte(manipulator.WristAngle) };
+
+                serial.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Control_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!ControlBtn.IsEnabled)
+            {
+                switch (e.Key)
+                {
+                    case Key.W:
+                        Forward_Click(sender, e);
+                        break;
+                    case Key.S:
+                        Back_Click(sender, e);
+                        break;
+                    case Key.A:
+                        Left_Click(sender, e);
+                        break;
+                    case Key.D:
+                        Right_Click(sender, e);
+                        break;
+                    case Key.Space:
+                        Up_Click(sender, e);
+                        break;
+                    case Key.LeftShift:
+                        Down_Click(sender, e);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

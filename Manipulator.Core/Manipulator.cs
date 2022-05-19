@@ -1,7 +1,15 @@
 ﻿namespace ManipulatorControl.Core
 {
-    public class Manipulator
+    public enum State
     {
+        Successful,
+        Error,
+        Stop,
+        Unlock,
+        Reload
+    };
+    public class Manipulator
+    { 
         public double Angle { get; private set; } // rotation angle of the whole manipulator
 
         public double ShoulderLen { get; private set; }

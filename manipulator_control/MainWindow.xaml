@@ -7,39 +7,106 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="manipulator" Height="450" Width="800">
-    <Grid>
-        <StackPanel>
-            <GroupBox Margin="5" Header="serial">
-                <Border Background="LightSteelBlue" Padding="7" >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+    <Grid KeyDown="Control_KeyDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid   x:Name="nav"
+                HorizontalAlignment="Left"
+                Width="60"
+                Background="#978EFF"
+                Grid.Column="0">
 
-                        <Label Padding="7">serial ports:</Label>
-                        <ComboBox Name="SerialPortNames" Grid.Column="1" Margin="5"></ComboBox>
-                        <Button Name="RefreshBtn" Grid.Column="2" Margin="5" Padding="7,0,7,0" Width="100" Click="RefreshBtn_Click">Refresh</Button>
-                        <Button Name="SerialPortConnectBtn" Grid.Column="3" Margin="5" Padding="7,0,7,0" Click="SerialPortConnectBtn_Click">Connect</Button>
-                    </Grid>
-                </Border>
-            </GroupBox>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-            <Grid>
-                <TextBox Name="XCoordinate" materialDesign:HintAssist.Hint="X" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            </Grid>
-            <Grid>
-                <TextBox Name="YCoordinate" materialDesign:HintAssist.Hint="Y" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            </Grid>
-            <Grid>
-                <TextBox Name="ZCoordinate" materialDesign:HintAssist.Hint="Z" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            </Grid>
-            <Grid>
-                <Button Name="SendBtn" HorizontalAlignment="Left" Width="120" Height="25" Content="send" Click="SendBtn_Click" IsEnabled="False"/>
-            </Grid>
-        </StackPanel>
+            <Button x:Name="CoordinatesBtn" Grid.Row="0" IsEnabled="false" Click="CoordinatesBtn_Click">
+                1
+            </Button>
+            <Button x:Name="ControlBtn" Grid.Row="1" Click="ControlBtn_Click">
+                2
+            </Button>
+            <Button x:Name="ProgrammingBtn" Grid.Row="2" Click="ProgrammingBtn_Click">
+                3
+            </Button>
 
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition  />
+            </Grid.RowDefinitions>
+            <StackPanel VerticalAlignment="Top"
+                        Grid.Row="0">
+                <GroupBox Header="serial">
+                    <Border Background="LightSteelBlue" Padding="7">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Padding="7" Content="serial ports:"/>
+                            <ComboBox x:Name="SerialPortNames" Grid.Column="1" Margin="5"/>
+                            <Button x:Name="RefreshBtn" Grid.Column="2" Margin="5" Padding="7,0,7,0" Width="100" Click="RefreshBtn_Click" Content="Refresh"/>
+                            <Button x:Name="SerialPortConnectBtn" Grid.Column="3" Margin="5" Padding="7,0,7,0" Click="SerialPortConnectBtn_Click" Content="Connect"/>
+                        </Grid>
+                    </Border>
+                </GroupBox>
+            </StackPanel>
+            <Grid Grid.Row="1"
+                  Margin="10"
+                  x:Name="Coordinates" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="XCoordinate" Grid.Column="0" materialDesign:HintAssist.Hint="X" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="YCoordinate" Grid.Column="1" materialDesign:HintAssist.Hint="Y" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="ZCoordinate" Grid.Column="2" materialDesign:HintAssist.Hint="Z" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+                <Button x:Name="SendBtn" Grid.Column="3" Content="send" Click="SendBtn_Click" IsEnabled="False" Width="120" VerticalAlignment="Top" Height="25" />
+            </Grid>
+            <Grid Grid.Row="1"
+                  Margin="10"
+                  x:Name="Control" 
+                  Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="ForwardBtn" IsEnabled="False" Grid.Column="1" Height="60" Width="60" Grid.Row="0" Click="Forward_Click">FORWARD</Button>
+                    <Button x:Name="LeftBtn" IsEnabled="False" Grid.Column="0" Height="60" Width="60" Grid.Row="1" Click="Left_Click">LEFT</Button>
+                    <Button x:Name="RightBtn" IsEnabled="False" Grid.Column="2" Height="60" Width="60" Grid.Row="1" Click="Right_Click">RIGHT</Button>
+                    <Button x:Name="BackBtn" IsEnabled="False" Grid.Column="1" Height="60" Width="60" Grid.Row="2" Click="Back_Click">BACK</Button>
+                    <Button x:Name="DownBtn" IsEnabled="False" Grid.Column="0" Height="60" Width="60" Grid.Row="2" Click="Down_Click">DOWN</Button>
+                    <Button x:Name="UpBtn" IsEnabled="False" Grid.Column="1" Height="60" Width="60" Grid.Row="1" Click="Up_Click">UP</Button>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1"
+                  Margin="10"
+                  x:Name="Programming" 
+                  Visibility="Collapsed">
+                <TextBlock>this is Programming</TextBlock>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
