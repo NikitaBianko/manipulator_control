@@ -3,8 +3,7 @@
     public enum State
     {
         Successful,
-        Error,
-        Stop,
+        Init,
         Unlock,
         Reload
     };
@@ -22,7 +21,7 @@
         public double WristAngle { get; private set; }
         public bool WristIsFixed { get; private set; } // fixed relative to the elbow
         public double WristAngleToHorizon { get; private set; }
-        public double WristCompression { get; private set; }
+        public double WristCompression { get; set; }
 
         public Point Position { get; private set; }
 
@@ -84,12 +83,12 @@
             return true;
         }
 
-        public bool MoveInPoint(Point coordinates)
+        public void MoveInPoint(Point coordinates)
         {
 
             if (!CheckCoordinates(coordinates))
             {
-                return false;
+                throw new Exception("Сoordinates are not correct.");
             }
 
             this.Position = coordinates;
@@ -126,8 +125,6 @@
                 this.ElbowAngle = Math.Acos((Math.Pow(this.ShoulderLen, 2) + Math.Pow(this.ElbowLen, 2) - cc) / (2 * this.ShoulderLen * this.ElbowLen)) * 180 / Math.PI;
                 this.WristAngle = 180 - this.ShoulderAngle - this.ElbowAngle + this.WristAngleToHorizon;
             }
-
-            return true;
         }
         public void SetFixedWrist(bool isFixed)
         {

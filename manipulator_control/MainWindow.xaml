@@ -105,7 +105,17 @@
                   Margin="10"
                   x:Name="Programming" 
                   Visibility="Collapsed">
-                <TextBlock>this is Programming</TextBlock>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <TextBox    x:Name="Code"
+                            Grid.Row="0"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="true"
+                            VerticalScrollBarVisibility="Visible">
+                </TextBox>
+                <Button x:Name="RunBtn" Grid.Row="1" Click="RunBtn_Click" IsEnabled="False">RUN</Button>
             </Grid>
         </Grid>
     </Grid>

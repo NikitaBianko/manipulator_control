@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,6 +53,9 @@ namespace manipulator_control
                 string selectedSerialPort = SerialPortNames.SelectedItem.ToString();
                 serial.Connect(selectedSerialPort, 9600);
 
+                var message = new byte[] { (int)State.Init << 4 };
+                serial.Send(message);
+
                 SerialPortConnectBtn.Content = "Disconnect";
                 SendBtn.IsEnabled = true;
                 ForwardBtn.IsEnabled = true;
@@ -60,6 +64,7 @@ namespace manipulator_control
                 RightBtn.IsEnabled = true;  
                 BackBtn.IsEnabled = true;  
                 UpBtn.IsEnabled = true;
+                RunBtn.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -77,6 +82,7 @@ namespace manipulator_control
             RightBtn.IsEnabled = false;
             BackBtn.IsEnabled = false;
             UpBtn.IsEnabled = false;
+            RunBtn.IsEnabled = false;
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
@@ -102,13 +108,13 @@ namespace manipulator_control
             {
                 manipulator.MoveInPoint(new ManipulatorControl.Core.Point(double.Parse(XCoordinate.Text), double.Parse(YCoordinate.Text), double.Parse(ZCoordinate.Text)));
 
-                byte state = ((int)State.Successful << 4) + 4; // 0000 0100 -> No instructions and 4 bytes will be sent next
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                    System.Convert.ToByte(manipulator.Angle), 
-                    System.Convert.ToByte(manipulator.ShoulderAngle), 
-                    System.Convert.ToByte(manipulator.ElbowAngle), 
-                    System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -160,13 +166,13 @@ namespace manipulator_control
 
                 manipulator.MoveInPoint(currentPosition);
 
-                byte state = ((int)State.Successful << 4) + 4;
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                System.Convert.ToByte(manipulator.Angle),
-                System.Convert.ToByte(manipulator.ShoulderAngle),
-                System.Convert.ToByte(manipulator.ElbowAngle),
-                System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -186,13 +192,13 @@ namespace manipulator_control
 
                 manipulator.MoveInPoint(currentPosition);
 
-                byte state = ((int)State.Successful << 4) + 4;
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                System.Convert.ToByte(manipulator.Angle),
-                System.Convert.ToByte(manipulator.ShoulderAngle),
-                System.Convert.ToByte(manipulator.ElbowAngle),
-                System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -212,13 +218,13 @@ namespace manipulator_control
 
                 manipulator.MoveInPoint(currentPosition);
 
-                byte state = ((int)State.Successful << 4) + 4;
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                System.Convert.ToByte(manipulator.Angle),
-                System.Convert.ToByte(manipulator.ShoulderAngle),
-                System.Convert.ToByte(manipulator.ElbowAngle),
-                System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -238,13 +244,13 @@ namespace manipulator_control
 
                 manipulator.MoveInPoint(currentPosition);
 
-                byte state = ((int)State.Successful << 4) + 4;
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                System.Convert.ToByte(manipulator.Angle),
-                System.Convert.ToByte(manipulator.ShoulderAngle),
-                System.Convert.ToByte(manipulator.ElbowAngle),
-                System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -264,13 +270,13 @@ namespace manipulator_control
 
                 manipulator.MoveInPoint(currentPosition);
 
-                byte state = ((int)State.Successful << 4) + 4;
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                System.Convert.ToByte(manipulator.Angle),
-                System.Convert.ToByte(manipulator.ShoulderAngle),
-                System.Convert.ToByte(manipulator.ElbowAngle),
-                System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -290,13 +296,13 @@ namespace manipulator_control
 
                 manipulator.MoveInPoint(currentPosition);
 
-                byte state = ((int)State.Successful << 4) + 4;
-
+                byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
-                System.Convert.ToByte(manipulator.Angle),
-                System.Convert.ToByte(manipulator.ShoulderAngle),
-                System.Convert.ToByte(manipulator.ElbowAngle),
-                System.Convert.ToByte(manipulator.WristAngle) };
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
 
                 serial.Send(message);
             }
@@ -324,15 +330,92 @@ namespace manipulator_control
                     case Key.D:
                         Right_Click(sender, e);
                         break;
-                    case Key.Space:
+                    case Key.E:
                         Up_Click(sender, e);
                         break;
-                    case Key.LeftShift:
+                    case Key.Q:
                         Down_Click(sender, e);
                         break;
                     default:
                         break;
                 }
+            }
+        }
+        private void runningProgram(String str)
+        {
+            for (int i = 0; i < str.Length; ++i)
+            {
+                if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') && (str[i] < '0' || str[i] > '9') && str[i] != ';' && str[i] != '(' && str[i] != ')' && str[i] != ',' && str[i] != '-')
+                {
+                    str = str.Remove(i--, 1);
+                }
+            }
+
+            var commands = str.Split(';');
+
+            foreach (var command in commands)
+            {
+                if (command.Length > 0)
+                {
+                    var commandName = command.Split('(')[0];
+                    var commandParams = command.Split('(', ')')[1].Split(',').Select(x => int.Parse(x)).ToList();
+
+                    if (commandName == "move")
+                    {
+                        manipulator.MoveInPoint(new ManipulatorControl.Core.Point(commandParams[0], commandParams[1], commandParams[2]));
+                        byte state = ((int)State.Successful << 4) + 5;
+                        var message = new byte[] { state,
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
+                        serial.Send(message);
+                    }
+                    else if (commandName == "delay")
+                    {
+                        Thread.Sleep(commandParams[0]);
+                    }
+                    else if (commandName == "compress")
+                    {
+                        byte state = ((int)State.Successful << 4) + 5;
+                        manipulator.WristCompression = System.Convert.ToByte(commandParams[0]);
+                        var message = new byte[] { state,
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
+                        serial.Send(message);
+                    }
+                    else
+                    {
+                        throw new Exception("unknown command");
+                    }
+                }
+            }
+        }
+        private void RunBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+
+                RunBtn.IsEnabled = false;
+
+                //Task running = new Task(() => runningProgram(Code.Text));   
+
+                //running.Start();
+                //running.Wait();
+
+                runningProgram(Code.Text);
+
+
+                RunBtn.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
