@@ -28,7 +28,11 @@ namespace manipulator_control
             InitializeComponent();
             InitializeSerialPort();
 
-            manipulator = new Manipulator(7.65, 7.92, 4, true);
+            manipulator = new Manipulator(13, 13, 13, true);
+            manipulator.SetFixedWrist(false);
+            manipulator.SetAngleToHorizon(0);
+
+
         }
 
         private void InitializeSerialPort()
@@ -107,6 +111,7 @@ namespace manipulator_control
             try
             {
                 manipulator.MoveInPoint(new ManipulatorControl.Core.Point(double.Parse(XCoordinate.Text), double.Parse(YCoordinate.Text), double.Parse(ZCoordinate.Text)));
+                manipulator.WristCompression = System.Convert.ToByte(Compress.Text);
 
                 byte state = ((int)State.Successful << 4) + 5;
                 var message = new byte[] { state,
@@ -380,6 +385,18 @@ namespace manipulator_control
                     {
                         byte state = ((int)State.Successful << 4) + 5;
                         manipulator.WristCompression = System.Convert.ToByte(commandParams[0]);
+                        var message = new byte[] { state,
+                                System.Convert.ToByte(manipulator.Angle),
+                                System.Convert.ToByte(manipulator.ShoulderAngle),
+                                System.Convert.ToByte(manipulator.ElbowAngle),
+                                System.Convert.ToByte(manipulator.WristAngle),
+                                System.Convert.ToByte(manipulator.WristCompression)};
+                        serial.Send(message);
+                    }
+                    else if (commandName == "setAngles")
+                    {
+                        manipulator.SetAngles(commandParams[0], commandParams[1], commandParams[2], commandParams[3]);
+                        byte state = ((int)State.Successful << 4) + 5;
                         var message = new byte[] { state,
                                 System.Convert.ToByte(manipulator.Angle),
                                 System.Convert.ToByte(manipulator.ShoulderAngle),

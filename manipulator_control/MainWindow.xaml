@@ -71,11 +71,13 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="XCoordinate" Grid.Column="0" materialDesign:HintAssist.Hint="X" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
                 <TextBox x:Name="YCoordinate" Grid.Column="1" materialDesign:HintAssist.Hint="Y" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
                 <TextBox x:Name="ZCoordinate" Grid.Column="2" materialDesign:HintAssist.Hint="Z" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
-                <Button x:Name="SendBtn" Grid.Column="3" Content="send" Click="SendBtn_Click" IsEnabled="False" Width="120" VerticalAlignment="Top" Height="25" />
+                <TextBox x:Name="Compress" Grid.Column="3" materialDesign:HintAssist.Hint="compress" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+                <Button x:Name="SendBtn" Grid.Column="4" Content="send" Click="SendBtn_Click" IsEnabled="False" Width="120" VerticalAlignment="Top" Height="25" />
             </Grid>
             <Grid Grid.Row="1"
                   Margin="10"
